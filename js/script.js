@@ -1,52 +1,68 @@
 function searchCSV(inputValue) {
     const csvData = localStorage.getItem('csvData');
-    if (!csvData) {
-        console.error('CSV data not found in localStorage.');
-        return;
-    }
-
-    const rows = csvData.split('\n');
     const searchResultsContainer = document.getElementById('search-results');
     searchResultsContainer.innerHTML = '';
-    console.log("innerHTML = ''")
-
     let count = 0;
 
-    for (let i = 0; i < rows.length; i++) {
-        const columns = rows[i].split(';');
-        if (columns.length >= 2 && (columns[3].toLowerCase().includes(inputValue.toLowerCase()) || columns[4].toLowerCase().includes(inputValue.toLowerCase()))) {
-            const random_id = Math.floor(Math.random() * 1000000);
-            const resultDiv = createResultDiv(columns, random_id, count);
-            searchResultsContainer.appendChild(resultDiv);
-            count++;
+    if (csvData) {
+        const rows = csvData.split('\n');
+
+        for (let i = 0; i < rows.length; i++) {
+            if (i < 5) {
+                continue;
+            }
+            const columns = rows[i].split(';');
+
+            // columns[10] = Location
+            if (!isValidFormat(columns[10])) {
+                // console.error("Invalid location " + columns[10]);
+                // console.error("Line " + columns);
+                continue;
+            }
+
+            var raw_lunch_box = columns[10].substring(3).split('-')[0].replace(/^0+/, '');
+            if (raw_lunch_box > 12) {
+                // console.error("Unsupported location " + lunch_box);
+                // console.error("Line " + columns);
+                continue;
+            }
+
+            if (columns.length >= 2 && (columns[3].toLowerCase().includes(inputValue.toLowerCase()) || columns[4].toLowerCase().includes(inputValue.toLowerCase()))) {
+                const random_id = Math.floor(Math.random() * 1000000);
+                const resultDiv = createResultDiv(columns, random_id, count);
+                searchResultsContainer.appendChild(resultDiv);
+
+                count++;
+            }
         }
     }
-
     if (count === 0) {
         const resultDiv = createNotFoundDiv(inputValue);
         searchResultsContainer.appendChild(resultDiv);
     }
 }
 
+function isValidFormat(str) {
+    // Regex pattern to match the expected format
+    var pattern = /H2\/\d*-\d*-\d*/;
+
+    // Check if the string matches the pattern and is not equal to "FRYS-1"
+    return pattern.test(str);
+}
 
 function createResultDiv(columns, random_id, count) {
-    const [null1, null2, null3, item, lot, null6, null7, null8, null9, null10, lunch_box, null11, null12,  null13,  null14, null15, null16, null17, null18] = columns;
+    const [null1, null2, null3, item, lot, null6, null7, null8, null9, null10, lunch_box, null12, null13, null14, null15, null16, null17, null18, null19] = columns;
 
     // Split the remaining string by the '-' character
     var lunch_box_split = lunch_box.substring(3).split('-');
     const raw_lunch_box = lunch_box_split[0].replace(/^0+/, '');
 
-    if (raw_lunch_box > 12) {
-        console.error("Unsupported lunch_box " + lunch_box);
-        lunch_box_tmp = "L99";
-    } else {
-        lunch_box_tmp = "L" + lunch_box_split[0].replace(/^0+/, '');
-    }
+    // console.log(lunch_box + "|" + lunch_box_split[0] + "|" + lunch_box_split[1] + "|" + lunch_box_split[2]);
+    // console.log(columns);
 
-    const formated_lunch_box = lunch_box_tmp;
+    const formated_lunch_box = "L" + raw_lunch_box;
     const lunch_box_row = lunch_box_split[1].replace(/^0+/, '');
     const lunch_box_position = lunch_box_split[2].replace(/^0+/, '');
-
 
     const newDiv = document.createElement('div');
     newDiv.innerHTML = `
@@ -61,14 +77,10 @@ function createResultDiv(columns, random_id, count) {
     newDiv.classList.add('result', 'pop-in');
     newDiv.style.animationDelay = `${count * 0.1}s`;
 
-    console.log(formated_lunch_box + " " + lunch_box + " " + item + " " + lot + " " + random_id);
-
     // Add event listeners
     newDiv.addEventListener('mouseenter', () => hideOtherMarkers(random_id));
     newDiv.addEventListener('mouseleave', showOtherMarkers);
     newDiv.addEventListener('click', () => saveMarker(formated_lunch_box, random_id, item));
-    
-    console.log("addEventListener " + formated_lunch_box + "|" + random_id + "|" + item + "|")
 
     // Add map marker
     addMarker(item, formated_lunch_box, lunch_box_row, random_id); // Pass latitude and longitude
@@ -125,8 +137,6 @@ function clearMarker() {
 
 function saveMarker(lunch_box, marker_id, marker_name) {
     var storedPinsIds = JSON.parse(localStorage.getItem('savedPinsIds')) || [];
-
-    console.log("clicked item with " + lunch_box + "|" + marker_id + "|" + marker_name + "|")
 
     var originalParent = document.getElementById(lunch_box);
     if (!originalParent) {
@@ -368,7 +378,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     inputBox.addEventListener('keyup', function (event) {
         const inputValue = event.target.value.trim(); // Trim whitespace
         clearMarker();
-        if (inputValue === '' || inputValue.length < 2) {
+        if (inputValue === '' || inputValue.length < 3) {
             searchResultsContainer.innerHTML = ''; // Clear search results if input is empty
             searchResultsContainer.classList.add('overflow-hidden');
             event.target.classList.remove('filled'); // Remove 'filled' class if input is empty
@@ -386,15 +396,14 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
 
-
-    document.getElementById('input-container').addEventListener('click', function(event) {
+    document.getElementById('input-container').addEventListener('click', function (event) {
         document.getElementById('fileInput').click();
     });
 
-    document.getElementById('fileInput').addEventListener('change', function(event) {
+    document.getElementById('fileInput').addEventListener('change', function (event) {
         // Get the selected file
         const file = event.target.files[0];
-    
+
         if (file) {
 
             localStorage.removeItem('csvData');
@@ -402,48 +411,22 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             // Read the file as text
             reader.readAsText(file);
-    
+
             // Define the callback for the FileReader
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 const fileContent = e.target.result;
-    
+
                 // Save the file content to local storage
                 localStorage.setItem('csvData', fileContent);
-    
+
                 document.getElementById('input-background').classList.remove('blink-class');
-                console.log('File uploaded and saved in local storage.');
-                
+                // console.log('File uploaded and saved in local storage.');
+
                 // Clear the input field
                 event.target.value = '';
             };
         }
     });
-    
-    // document.addEventListener('DOMContentLoaded', () => {
-    //     const fileInput = document.getElementById('fileInput');
-    
-    //     fileInput.addEventListener('change', () => {
-    //         const file = fileInput.files[0];
-    //         if (file) {
-    //             const reader = new FileReader();
-    //             reader.onload = function(event) {
-    //                 const fileContent = event.target.result;
-    //                 localStorage.setItem('csvData', fileContent);
-    //                 localStorage.setItem('fileName', file.name);
-    //                 alert('File saved!');
-    //             };
-    //             reader.readAsDataURL(file);
-    //         } else {
-    //             alert('No file selected.');
-    //         }
-    //     });
-    
-
-    // });
-
-
-
-
 
 
 
