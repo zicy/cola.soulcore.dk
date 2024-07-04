@@ -1,1 +1,89 @@
-Hallo world
+<!DOCTYPE html>
+<html id="background" lang="en">
+
+<head>
+    <title>Cola warehouse locator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="darkreader" content="pls no darkreader">
+    <link rel="stylesheet" href="css/styles.css?v=1">
+    <link rel="stylesheet" href="css/settings.css?v=1">
+    <link rel="stylesheet" href="css/search.css?v=1">
+    <link rel="stylesheet" href="css/list.css?v=1">
+    <link rel="stylesheet" href="css/map.css?v=1">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+</head>
+
+<body>
+    <main class="main-bg">
+        <div id="input-container" class="input-container">
+            <div id="input-background" class="input-background"></div>
+            <div class="input-icon">🗒️</div>
+            <input type="file" id="fileInput" style="display: none;" />
+        </div>
+        <div class="setting-container">
+            <div id="darkness-setting" class="darkness-setting">🌛</div>
+            <div class="tooltip">
+                <input id="darkness" type="range" min="0" max="100" value="50">
+            </div>
+        </div>
+        <div class="container-top">
+            <div id="header" class="header-top">
+                <!-- <h1>Fancy Search Box</h1>
+                <h2>Try below!</h2> -->
+                <div class="search-input">
+                    <input autocomplete="off" id="search-input-field" type="text" placeholder="Search...">
+                    <div id="search-input-icon" class="search" onclick="clear_input()"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div id="map-container">
+                <!-- <div id="stuff"> -->
+                <img id="map" src="images/maps/lager_v1.png" alt="Map">
+
+                <div id="map-pins-saved"></div>
+
+                <div id="map-pins">
+                    <div id="L1" class="lunch-box  L1"><!-- L1  --></div>
+                    <div id="L2" class="lunch-box  L2"><!-- L2  --></div>
+                    <div id="L3" class="lunch-box  L3"><!-- L3  --></div>
+                    <div id="L4" class="lunch-box  L4"><!-- L4  --></div>
+                    <div id="L5" class="lunch-box  L5"><!-- L5  --></div>
+                    <div id="L6" class="lunch-box  L6"><!-- L6  --></div>
+                    <div id="L7" class="lunch-box  L7"><!-- L7  --></div>
+                    <div id="L8" class="lunch-box  L8"><!-- L8  --></div>
+                    <div id="L9" class="lunch-box  L9"><!-- L9  --></div>
+                    <div id="L10" class="lunch-box L10"><!-- L10  --></div>
+                    <div id="L11" class="lunch-box L11"><!-- L11  --></div>
+                    <div id="L12" class="lunch-box L12"><!-- L12  --></div>
+
+                    <div id="L99" class="lunch-box L99"><!-- L12  --></div>
+                </div>
+
+                <div id="map-pins-saved-list">
+                    <!-- <p>test<span>×</span></p> -->
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="search">
+                <!-- <div id="header" class="header" onload="random_background()">
+                    <h1>Fancy Search Box</h1>
+                    <h2>Try below!</h2>
+                    <div class="search-input">
+                        <input autocomplete="off" id="search-input-field" type="text" placeholder="Search...">
+                        <div id="search-input-icon" class="search" onclick="clear_input()"></div>
+                    </div>
+                </div> -->
+                <div id="search-results" class="results overflow-hidden">
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+    <script src="js/script.js?v=1"></script>
+</body>
+
+</html>
