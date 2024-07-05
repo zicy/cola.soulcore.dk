@@ -1,3 +1,5 @@
+// Misc javascript functions
+
 
 document.addEventListener('DOMContentLoaded', async function () {
 
@@ -131,3 +133,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         updateDarkness(darknessInput.value);
     });
 });
+
+
+
+
+function capitalizeFirstLetter(string) {
+    if (string.length === 0) return string; // Return the empty string if input is empty
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}

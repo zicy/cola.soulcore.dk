@@ -48,16 +48,8 @@ function createModal(target, columns, formated_lunch_box, random_id, item) {
             );
 
             document.getElementById('modal-header-1').innerHTML = columns['item'] + " | " + columns['lot'];
-            // 
-
 
             modalPropertiesContainer = document.getElementById('modal-properties-list');
-
-
-            function capitalizeFirstLetter(string) {
-                if (string.length === 0) return string; // Return the empty string if input is empty
-                return string.charAt(0).toUpperCase() + string.slice(1);
-            }
 
             i = 1
             Object.entries(columns).forEach(([key, value]) => {
