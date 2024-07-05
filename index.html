@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/search.css?v=1">
     <link rel="stylesheet" href="css/list.css?v=1">
     <link rel="stylesheet" href="css/map.css?v=1">
+    <link rel="stylesheet" href="css/modal.css?v=1">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 </head>
 
@@ -83,8 +84,108 @@
         </div>
 
     </main>
+
+    <!-- <button data-modal-target="modal1">Show Modal 1</button> -->
+
+    <div class="modal" id="modal1">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h1 id="modal-header-1">Modal Title 1</h1>
+
+            <div class="modal-image-container">
+                <img class="modal-image" src="images/unkown_image.jpg" alt="${item}">
+            </div>
+
+            <ul class="list-group list-group-unbordered mb-3">
+                <li class="list-group-item">
+                    <b>Open movement</b>
+                    <div id="modal-data-row-1" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>Depot</b>
+                    <div id="modal-data-row-2" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>Principal</b>
+                    <div id="modal-data-row-3" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>Item</b>
+                    <div id="modal-data-row-4" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>Lot</b>
+                    <div id="modal-data-row-5" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>Maximum delivery date</b>
+                    <div id="modal-data-row-6" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>BBD</b>
+                    <div id="modal-data-row-7" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>Stock type code</b>
+                    <div id="modal-data-row-8" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>SSCC</b>
+                    <div id="modal-data-row-9" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>Pallet number</b>
+                    <div id="modal-data-row-10" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>Location</b>
+                    <div id="modal-data-row-11" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>Available stock (Stock unit)</b>
+                    <div id="modal-data-row-12" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>Real-time stock (Stock unit)</b>
+                    <div id="modal-data-row-13" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>Net weight</b>
+                    <div id="modal-data-row-14" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>External reference 1</b>
+                    <div id="modal-data-row-15" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>External reference 2</b>
+                    <div id="modal-data-row-16" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>Inbound shipment</b>
+                    <div id="modal-data-row-17" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>Bundle type</b>
+                    <div id="modal-data-row-18" class="float-right"></div>
+                </li>
+                <li class="list-group-item">
+                    <b>Unavailable</b>
+                    <div id="modal-data-row-19" class="float-right"></div>
+                </li>
+            </ul>
+
+            <div class="modal-spacer"></div>
+
+            <button id="modal-save-location" type="button" class="modal-save-location-button">
+                Save item on map
+            </button>
+        </div>
+    </div>
+
     <script src="js/misc.js?v=1"></script>
     <script src="js/script.js?v=1"></script>
+    <script src="js/modal.js?v=1"></script>
 </body>
 
 </html>

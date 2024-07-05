@@ -35,6 +35,7 @@ function searchCSV(inputValue) {
                 count++;
             }
         }
+        
     }
     if (count === 0) {
         const resultDiv = createNotFoundDiv(inputValue);
@@ -66,21 +67,24 @@ function createResultDiv(columns, random_id, count) {
 
     const newDiv = document.createElement('div');
     newDiv.innerHTML = `
-        <img class="color-${formated_lunch_box}" src="https://st3.depositphotos.com/3581215/18899/v/450/depositphotos_188994514-stock-illustration-vector-illustration-male-silhouette-profile.jpg" alt="${item}" >
-        <div class="result-name">${item} | ${lot} | ${lunch_box}</div>
+        <img class="color-${formated_lunch_box}" src="images/unkown_image.jpg" alt="${item}" />
+        <div class="result-name">${item} | ${lot}</div>
         <div class="result-extra-info">
             <div>Lunchbox <span class="">${raw_lunch_box}</span></div>
             <div>Row <span class="">${lunch_box_row}</span></div>
             <div>Position <span class="">${lunch_box_position}</span></div>
         </div>
     `;
-    newDiv.classList.add('result', 'pop-in');
+    newDiv.classList.add('result', 'pop-in', 'modal-trigger');
     newDiv.style.animationDelay = `${count * 0.1}s`;
 
     // Add event listeners
     newDiv.addEventListener('mouseenter', () => hideOtherMarkers(random_id));
     newDiv.addEventListener('mouseleave', showOtherMarkers);
-    newDiv.addEventListener('click', () => saveMarker(formated_lunch_box, random_id, item));
+    newDiv.setAttribute('data-modal-target', 'modal1');
+    createModal(newDiv, columns, formated_lunch_box, random_id, item);
+    // newDiv.addEventListener('click', () => saveMarker(formated_lunch_box, random_id, item));
+    // document.getElementById('modal-save-location').addEventListener('click', () => saveMarker(formated_lunch_box, random_id, item));
 
     // Add map marker
     addMarker(item, formated_lunch_box, lunch_box_row, random_id); // Pass latitude and longitude
