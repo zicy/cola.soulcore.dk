@@ -1,3 +1,5 @@
+
+
 function searchCSV(inputValue) {
     const csvData = localStorage.getItem('csvData');
     const searchResultsContainer = document.getElementById('search-results');
@@ -50,6 +52,7 @@ function searchCSV(inputValue) {
     }
 }
 
+
 function isValidFormat(str) {
     // Regex pattern to match the expected format
     var pattern = /H2\/\d*-\d*-\d*/;
@@ -58,8 +61,8 @@ function isValidFormat(str) {
     return pattern.test(str);
 }
 
-function createResultDiv(columns, random_id, count) {
 
+function createResultDiv(columns, random_id, count) {
     // Split the remaining string by the '-' character
     var lunch_box_split = columns['location'].substring(3).split('-');
     const raw_lunch_box = lunch_box_split[0].replace(/^0+/, '');
@@ -100,6 +103,7 @@ function createResultDiv(columns, random_id, count) {
     return newDiv;
 }
 
+
 function createNotFoundDiv(inputValue) {
     const newDiv = document.createElement('div');
     newDiv.innerHTML = `
@@ -137,6 +141,7 @@ function showOtherMarkers() {
     });
 }
 
+
 function clearMarker() {
     const mapContainer = document.getElementById('map-pins');
     const mapPins = mapContainer.querySelectorAll('div'); // Select all div elements under map-pins
@@ -144,8 +149,8 @@ function clearMarker() {
         // Update innerHTML for each child div
         pin.innerHTML = ''; // You can set any content you want here
     });
-    // mapContainer.innerHTML = '';
 }
+
 
 function saveMarker(lunch_box, marker_id, marker_name) {
     var storedPinsIds = JSON.parse(localStorage.getItem('savedPinsIds')) || [];
@@ -223,6 +228,7 @@ function saveMarker(lunch_box, marker_id, marker_name) {
     updateSavedMarkerStorage();
 }
 
+
 function removeSavedMarker(marker_id) {
     var suffixes = ['_marker', '_pulse', '_text', '_saved-list'];
 
@@ -235,6 +241,7 @@ function removeSavedMarker(marker_id) {
 
     updateSavedMarkerStorage();
 }
+
 
 function updateSavedMarkerStorage() {
     var savedPins = document.getElementById('map-pins-saved');
@@ -252,20 +259,6 @@ function updateSavedMarkerStorage() {
     }
 }
 
-function isEven(number) {
-    return number % 2 === 0;
-}
-
-// L1 = lunchbox
-// Tæller fra middergang 
-// 32 items per række
-
-
-// række
-// 1 = top
-// 2 = bottom
-// 3 = top begved
-// 4 = bund bagved
 
 function addMarker(name, lunch_box, position, random_id) {
     const totalItems = 44;
@@ -315,6 +308,7 @@ function addMarker(name, lunch_box, position, random_id) {
     mapContainer.appendChild(markerPulse);
     mapContainer.appendChild(markerText);
 }
+
 
 function clear_input(event2) {
     const inputBox = document.getElementById('search-input-field');

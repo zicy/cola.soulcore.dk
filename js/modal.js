@@ -47,16 +47,16 @@ function createModal(target, columns, formated_lunch_box, random_id, item) {
             }, { once: true }
             );
 
+            // Set the "name" displayed in the modal
             document.getElementById('modal-header-1').innerHTML = columns['item'] + " | " + columns['lot'];
 
+            // Get the refference for the ul element which the data needs to be inputted into
             modalPropertiesContainer = document.getElementById('modal-properties-list');
 
             i = 1
             Object.entries(columns).forEach(([key, value]) => {
                 newElem = document.createElement('li');
                 newElem.classList.add('list-group-item');
-
-                newElem2 = document.createElement('b');
 
                 if (key == "bbd") {
                     final_key = "BBD";
@@ -65,6 +65,8 @@ function createModal(target, columns, formated_lunch_box, random_id, item) {
                 } else {
                     final_key = capitalizeFirstLetter(key);
                 }
+
+                newElem2 = document.createElement('b');
                 newElem2.innerHTML = final_key;
 
                 newDiv = document.createElement('div');
@@ -80,7 +82,7 @@ function createModal(target, columns, formated_lunch_box, random_id, item) {
             setTimeout(() => {
                 modal.style.display = "flex";
                 modal.classList.add("modal-show");
-            }, 20);
+            }, 50);
         }
     }
 }

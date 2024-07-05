@@ -141,3 +141,10 @@ function capitalizeFirstLetter(string) {
     if (string.length === 0) return string; // Return the empty string if input is empty
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+
+
+
+function isEven(number) {
+    return number % 2 === 0;
+}
