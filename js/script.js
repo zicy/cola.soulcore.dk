@@ -67,6 +67,8 @@ function createResultDiv(columns, random_id, count) {
 
     if (null3 == "CAT"){
         logo = "/images/logo/cater_food_web2.png";
+    } else if (null3 == "ARDO"){
+        logo = "/images/logo/ardo_logo.jpg";
     } else {
         logo = "/images/unkown_image.jpg";
     }
