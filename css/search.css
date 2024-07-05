@@ -18,7 +18,7 @@
         left: 0;
         width: 80px;
         height: 80px;
-        background: crimson;
+        background: rgb(51, 124, 234);
         border-radius: 50%;
         transition: all 1s;
         z-index: 4;
@@ -102,12 +102,12 @@
         outline: none;
         border: none;
         /* border-bottom: 1px solid rgba(255, 255, 255, 0.2); */
-        background: crimson;
+        background: rgb(51, 124, 234);
         color: white;
-        text-shadow: 0 0 10px crimson;
+        text-shadow: 0 0 10px rgb(51, 124, 234);
         padding: 0 80px 0 20px;
         border-radius: 30px;
-        box-shadow: 0 0 25px 0 crimson,
+        box-shadow: 0 0 25px 0 rgb(51, 124, 234),
             0 20px 25px 0 rgba(0, 0, 0, 0.2);
         /* box-shadow: inset 0 0 25px 0 rgba(0, 0, 0, 0.5); */
         transition: all 1s;
