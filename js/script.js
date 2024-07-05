@@ -6,28 +6,35 @@ function searchCSV(inputValue) {
 
     if (csvData) {
         const rows = csvData.split('\n');
+        rows.splice(0,3);                       // Skip the first 3 lines in the CSV file
+        const headers = rows[0].toLowerCase().split(';');     // Save the column headers
 
         for (let i = 0; i < rows.length; i++) {
-            if (i < 4) {
-                continue;
-            }
-            const columns = rows[i].split(';');
+
+
+            const data = rows[i].split(';');
+
+            const columns = headers.reduce((obj, header, index) => {
+                obj[header] = data[index];
+                return obj;
+            }, {});
 
             // columns[10] = Location
-            if (!isValidFormat(columns[10])) {
+            if (!isValidFormat(columns['location'])) {
                 // console.error("Invalid location " + columns[10]);
                 // console.error("Line " + columns);
                 continue;
             }
 
-            var raw_lunch_box = columns[10].substring(3).split('-')[0].replace(/^0+/, '');
+            var raw_lunch_box = columns['location'].substring(3).split('-')[0].replace(/^0+/, '');
             if (raw_lunch_box > 12) {
                 // console.error("Unsupported location " + lunch_box);
                 // console.error("Line " + columns);
                 continue;
             }
 
-            if (columns.length >= 2 && (columns[3].toLowerCase().includes(inputValue.toLowerCase()) || columns[4].toLowerCase().includes(inputValue.toLowerCase()))) {
+
+            if ((columns['item'].toLowerCase().includes(inputValue.toLowerCase()) || columns['lot'].toLowerCase().includes(inputValue.toLowerCase()))) {
                 const random_id = Math.floor(Math.random() * 1000000);
                 const resultDiv = createResultDiv(columns, random_id, count);
                 searchResultsContainer.appendChild(resultDiv);
@@ -35,7 +42,7 @@ function searchCSV(inputValue) {
                 count++;
             }
         }
-        
+
     }
     if (count === 0) {
         const resultDiv = createNotFoundDiv(inputValue);
@@ -52,28 +59,24 @@ function isValidFormat(str) {
 }
 
 function createResultDiv(columns, random_id, count) {
-    const [null1, null2, null3, item, lot, null6, null7, null8, null9, null10, lunch_box, null12, null13, null14, null15, null16, null17, null18, null19] = columns;
 
     // Split the remaining string by the '-' character
-    var lunch_box_split = lunch_box.substring(3).split('-');
+    var lunch_box_split = columns['location'].substring(3).split('-');
     const raw_lunch_box = lunch_box_split[0].replace(/^0+/, '');
-
-    // console.log(lunch_box + "|" + lunch_box_split[0] + "|" + lunch_box_split[1] + "|" + lunch_box_split[2]);
-    // console.log(columns);
-
+    
     const formated_lunch_box = "L" + raw_lunch_box;
     const lunch_box_row = lunch_box_split[1].replace(/^0+/, '');
     const lunch_box_position = lunch_box_split[2].replace(/^0+/, '');
 
-    if (null3 == "CAT"){
+    if (columns['principal'] == "CAT") {
         logo = "/images/logo/cater_food_web2.png";
     } else {
         logo = "/images/unkown_image.jpg";
     }
     const newDiv = document.createElement('div');
     newDiv.innerHTML = `
-        <img class="color-${formated_lunch_box}" src="${logo}" alt="${item}" />
-        <div class="result-name">${item} | ${lot}</div>
+        <img class="color-${formated_lunch_box}" src="${logo}" alt="${columns['item']}" />
+        <div class="result-name">${columns['item']} | ${columns['lot']}</div>
         <div class="result-extra-info">
             <div>Reol <span class="">${raw_lunch_box}</span></div>
             <div>Række <span class="">${lunch_box_row}</span></div>
@@ -87,12 +90,12 @@ function createResultDiv(columns, random_id, count) {
     newDiv.addEventListener('mouseenter', () => hideOtherMarkers(random_id));
     newDiv.addEventListener('mouseleave', showOtherMarkers);
     newDiv.setAttribute('data-modal-target', 'modal1');
-    createModal(newDiv, columns, formated_lunch_box, random_id, item);
+    createModal(newDiv, columns, formated_lunch_box, random_id, columns['item']);
     // newDiv.addEventListener('click', () => saveMarker(formated_lunch_box, random_id, item));
     // document.getElementById('modal-save-location').addEventListener('click', () => saveMarker(formated_lunch_box, random_id, item));
 
     // Add map marker
-    addMarker(item, formated_lunch_box, lunch_box_row, random_id); // Pass latitude and longitude
+    addMarker(columns['item'], formated_lunch_box, lunch_box_row, random_id); // Pass latitude and longitude
 
     return newDiv;
 }

@@ -2,8 +2,6 @@
 
 function createModal(target, columns, formated_lunch_box, random_id, item) {
 
-    console.log("afafa");
-
     // const modalTriggerButtons = document.querySelectorAll("[data-modal-target]");
     const modals = document.querySelectorAll(".modal");
     const modalCloseButtons = document.querySelectorAll(".modal-close");
@@ -48,21 +46,57 @@ function createModal(target, columns, formated_lunch_box, random_id, item) {
             document.body.style.overflow = "hidden";
 
             document.getElementById('modal-save-location').addEventListener('click', (e) => {
-                saveMarker(formated_lunch_box, random_id, item)
+                saveMarker(formated_lunch_box, random_id, columns['item'])
                 e.target.classList.add('modal-button-disabled');
                 e.target.innerHTML = "Marker saved";
-                console.log(e);
             }, { once: true }
             );
 
-            document.getElementById('modal-header-1').innerHTML = columns[3] + " | " + columns[4];
+            document.getElementById('modal-header-1').innerHTML = columns['item'] + " | " + columns['lot'];
             // 
 
+
+            modalPropertiesContainer = document.getElementById('modal-properties-list');
+
+
+            function capitalizeFirstLetter(string) {
+                if (string.length === 0) return string; // Return the empty string if input is empty
+                return string.charAt(0).toUpperCase() + string.slice(1);
+            }
+
             i = 1
-            columns.forEach(elem => {
-                document.getElementById('modal-data-row-' + i).innerHTML = elem;
-                i++;
+            Object.entries(columns).forEach(([key, value]) => {
+                newElem = document.createElement('li');
+                newElem.classList.add('list-group-item');
+
+                newElem2 = document.createElement('b');
+
+                if (key == "bbd") {
+                    final_key = "BBD";
+                } else if (key == "sscc") {
+                    final_key = "SSCC";
+                } else {
+                    final_key = capitalizeFirstLetter(key);
+                }
+                newElem2.innerHTML = final_key;
+
+                newDiv = document.createElement('div');
+                newDiv.innerHTML = value;
+                newDiv.classList.add('float-right');
+
+                newElem.appendChild(newElem2);
+                newElem.appendChild(newDiv);
+
+                modalPropertiesContainer.appendChild(newElem);
             });
+
+
+            // <li class="list-group-item">
+            //     <b>Open movement</b>
+            //     <div id="modal-data-row-1" class="float-right"></div>
+            // </li>
+
+
             setTimeout(() => {
                 modal.style.display = "flex";
                 modal.classList.add("modal-show");
