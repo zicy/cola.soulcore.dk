@@ -70,7 +70,7 @@ function createResultDiv(columns, random_id, count) {
 
     if (columns['principal'] == "CAT") {
         logo = "/images/logo/cater_food_web2.png";
-    } else if (null3 == "ARDO"){
+    } else if (columns['principal'] == "ARDO"){
         logo = "/images/logo/ardo_logo.jpg";
     } else {
         logo = "/images/unkown_image.jpg";
@@ -93,8 +93,6 @@ function createResultDiv(columns, random_id, count) {
     newDiv.addEventListener('mouseleave', showOtherMarkers);
     newDiv.setAttribute('data-modal-target', 'modal1');
     createModal(newDiv, columns, formated_lunch_box, random_id, columns['item']);
-    // newDiv.addEventListener('click', () => saveMarker(formated_lunch_box, random_id, item));
-    // document.getElementById('modal-save-location').addEventListener('click', () => saveMarker(formated_lunch_box, random_id, item));
 
     // Add map marker
     addMarker(columns['item'], formated_lunch_box, lunch_box_row, random_id); // Pass latitude and longitude

@@ -2,13 +2,8 @@
 
 function createModal(target, columns, formated_lunch_box, random_id, item) {
 
-    // const modalTriggerButtons = document.querySelectorAll("[data-modal-target]");
     const modals = document.querySelectorAll(".modal");
     const modalCloseButtons = document.querySelectorAll(".modal-close");
-
-    // modalTriggerButtons.forEach(elem => {
-    //     elem.addEventListener("click", event => toggleModal(event.currentTarget.getAttribute("data-modal-target")));
-    // });
 
     target.addEventListener("click", event => {
         toggleModal(event.currentTarget.getAttribute("data-modal-target"))
@@ -89,13 +84,6 @@ function createModal(target, columns, formated_lunch_box, random_id, item) {
 
                 modalPropertiesContainer.appendChild(newElem);
             });
-
-
-            // <li class="list-group-item">
-            //     <b>Open movement</b>
-            //     <div id="modal-data-row-1" class="float-right"></div>
-            // </li>
-
 
             setTimeout(() => {
                 modal.style.display = "flex";
