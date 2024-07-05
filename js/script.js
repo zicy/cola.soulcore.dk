@@ -65,14 +65,19 @@ function createResultDiv(columns, random_id, count) {
     const lunch_box_row = lunch_box_split[1].replace(/^0+/, '');
     const lunch_box_position = lunch_box_split[2].replace(/^0+/, '');
 
+    if (null3 == "CAT"){
+        logo = "/images/logo/cater_food_web2.png";
+    } else {
+        logo = "/images/unkown_image.jpg";
+    }
     const newDiv = document.createElement('div');
     newDiv.innerHTML = `
-        <img class="color-${formated_lunch_box}" src="images/unkown_image.jpg" alt="${item}" />
+        <img class="color-${formated_lunch_box}" src="${logo}" alt="${item}" />
         <div class="result-name">${item} | ${lot}</div>
         <div class="result-extra-info">
-            <div>Lunchbox <span class="">${raw_lunch_box}</span></div>
-            <div>Row <span class="">${lunch_box_row}</span></div>
-            <div>Position <span class="">${lunch_box_position}</span></div>
+            <div>Reol <span class="">${raw_lunch_box}</span></div>
+            <div>Række <span class="">${lunch_box_row}</span></div>
+            <div>Hylde <span class="">${lunch_box_position}</span></div>
         </div>
     `;
     newDiv.classList.add('result', 'pop-in', 'modal-trigger');
