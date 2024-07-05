@@ -8,7 +8,7 @@ function searchCSV(inputValue) {
 
     if (csvData) {
         const rows = csvData.split('\n');
-        rows.splice(0,3);                       // Skip the first 3 lines in the CSV file
+        rows.splice(0, 3);                       // Skip the first 3 lines in the CSV file
         const headers = rows[0].toLowerCase().split(';');     // Save the column headers
 
         for (let i = 0; i < rows.length; i++) {
@@ -66,14 +66,14 @@ function createResultDiv(columns, random_id, count) {
     // Split the remaining string by the '-' character
     var lunch_box_split = columns['location'].substring(3).split('-');
     const raw_lunch_box = lunch_box_split[0].replace(/^0+/, '');
-    
+
     const formated_lunch_box = "L" + raw_lunch_box;
     const lunch_box_row = lunch_box_split[1].replace(/^0+/, '');
     const lunch_box_position = lunch_box_split[2].replace(/^0+/, '');
 
     if (columns['principal'] == "CAT") {
         logo = "/images/logo/cater_food_web2.png";
-    } else if (columns['principal'] == "ARDO"){
+    } else if (columns['principal'] == "ARDO") {
         logo = "/images/logo/ardo_logo.jpg";
     } else {
         logo = "/images/unkown_image.jpg";
