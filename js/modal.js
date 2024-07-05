@@ -12,7 +12,10 @@ function createModal(target, columns, formated_lunch_box, random_id, item) {
     //     elem.addEventListener("click", event => toggleModal(event.currentTarget.getAttribute("data-modal-target")));
     // });
 
-    target.addEventListener("click", event => toggleModal(event.currentTarget.getAttribute("data-modal-target")));
+    target.addEventListener("click", event => {
+        toggleModal(event.currentTarget.getAttribute("data-modal-target"))
+        window.scrollTo(0, 0);
+    });
 
     modalCloseButtons.forEach(elem => {
         elem.addEventListener("click", event => toggleModal(event.currentTarget.closest(".modal").id));
