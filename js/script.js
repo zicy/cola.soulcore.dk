@@ -8,7 +8,7 @@ function searchCSV(inputValue) {
         const rows = csvData.split('\n');
 
         for (let i = 0; i < rows.length; i++) {
-            if (i < 5) {
+            if (i < 4) {
                 continue;
             }
             const columns = rows[i].split(';');
